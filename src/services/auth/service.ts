@@ -27,10 +27,13 @@ export async function signUp(userData: {
   userData.password = await bcrypt.hash(userData.password, 10);
   userData.created_at = new Date();
   userData.updated_at = new Date();
-
-  return new Promise((resolve) => {
-    addData("users", userData);
-  });
+  try {
+    await addData("users", userData);
+    return true;
+  } catch (error) {
+    console.error("signUp error:", error);
+    return false;
+  }
 }
 
 export async function signIn(
@@ -67,6 +70,7 @@ export async function loginWithGoogle(
     data.updated_at = new Date();
     data.password = "";
 
-    await addData("users", data);
+    const id = await addData("users", data);
+    callbacks({ id, ...data });
   }
 }
