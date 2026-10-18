@@ -11,6 +11,14 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+console.log("[firebase] projectId:", JSON.stringify(firebaseConfig.projectId));
+console.log(
+  "[firebase] keys:",
+  Object.entries(firebaseConfig)
+    .map(([k, v]) => `${k}=${v ? "ok" : "MISSING"}`)
+    .join(", "),
+);
+
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 if (typeof window !== "undefined") {

@@ -36,7 +36,6 @@ export function SignupForm({
       phone: formData.get("phone") as string,
       password: formData.get("password") as string,
     };
-    console.log(data);
 
     const result = await authServices.registerAccount(data);
 
